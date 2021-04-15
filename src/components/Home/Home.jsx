@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import "./Home.sass";
 import cross from "../../assets/cross.svg";
+import Modal from "../Modal/Modal";
 
 const Home = () => {
     const [search, setSearch] = useState("");
     const [movies, setMovies] = useState("");
     const [genres, setGenres] = useState("");
+    const [modal, setModal] = useState(false);
 
     const apiKey = "1c5abaaeaa13c66b570ad3042a0d51f4";
 
@@ -57,41 +59,47 @@ const Home = () => {
                         alt="cross"
                     />
                 )}
+                {movies.length === 0 && search.length > 2 && (
+                    <p>No movie found.</p>
+                )}
                 {movies &&
                     movies.map((movie) => {
                         return (
                             <div
+                                className="home-movie-grid"
                                 key={movie.id}
-                                className="home-movie-container"
+                                onClick={() => setModal(true)}
                             >
-                                <div className="home-movie-grid">
-                                    <img
-                                        src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`}
-                                        className="movie-poster"
-                                        alt="movie poster"
-                                    />
-                                    <div className="home-movie-grid-right">
-                                        <h2 className="home-movie-grid-title">
-                                            {movie.title}
-                                        </h2>
-                                        <p className="home-movie-grid-date">
-                                            {movie.release_date}
-                                        </p>
-                                        {movie.genre_ids.map((id) => {
-                                            return genres.map(
-                                                (genre) =>
-                                                    id === genre.id && (
-                                                        <p className="home-movie-grid-genre">
-                                                            {genre.name}
-                                                        </p>
-                                                    )
-                                            );
-                                        })}
-                                    </div>
+                                <img
+                                    src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`}
+                                    className="movie-poster"
+                                    alt="movie poster"
+                                />
+                                <div className="home-movie-grid-right">
+                                    <h2 className="home-movie-grid-title">
+                                        {movie.title}
+                                    </h2>
+                                    <p className="home-movie-grid-date">
+                                        {movie.release_date}
+                                    </p>
+                                    {movie.genre_ids.map((id) => {
+                                        return genres.map(
+                                            (genre) =>
+                                                id === genre.id && (
+                                                    <p
+                                                        className="home-movie-grid-genre"
+                                                        key={id}
+                                                    >
+                                                        {genre.name}
+                                                    </p>
+                                                )
+                                        );
+                                    })}
                                 </div>
                             </div>
                         );
                     })}
+                {modal && <Modal />}
             </div>
         </div>
     );
