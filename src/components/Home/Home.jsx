@@ -8,6 +8,7 @@ const Home = () => {
     const [movies, setMovies] = useState("");
     const [genres, setGenres] = useState("");
     const [modal, setModal] = useState(false);
+    const [movie, setMovie] = useState("");
 
     const apiKey = "1c5abaaeaa13c66b570ad3042a0d51f4";
 
@@ -36,10 +37,15 @@ const Home = () => {
     useEffect(() => {
         search.length >= 3 && getGenres();
         search.length >= 3 && getMovies();
-        search.length < 3 && getGenres("");
+        search.length < 3 && setGenres("");
         search.length < 3 && setMovies("");
         //eslint-disable-next-line
     }, [search]);
+
+    const openModal = (movie) => {
+        setModal(true);
+        setMovie(movie);
+    };
 
     return (
         <div className="home-container">
@@ -59,16 +65,18 @@ const Home = () => {
                         alt="cross"
                     />
                 )}
-                {movies.length === 0 && search.length > 2 && (
-                    <p>No movie found.</p>
-                )}
+            </div>
+            {movies.length === 0 && search.length > 2 && (
+                <p className="home-not-found">No movie found.</p>
+            )}
+            <div className="home-movie-grid-container">
                 {movies &&
                     movies.map((movie) => {
                         return (
                             <div
                                 className="home-movie-grid"
                                 key={movie.id}
-                                onClick={() => setModal(true)}
+                                onClick={() => openModal(movie)}
                             >
                                 <img
                                     src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`}
@@ -99,8 +107,10 @@ const Home = () => {
                             </div>
                         );
                     })}
-                {modal && <Modal />}
             </div>
+            {modal && (
+                <Modal movie={movie} apiKey={apiKey} setModal={setModal} />
+            )}
         </div>
     );
 };

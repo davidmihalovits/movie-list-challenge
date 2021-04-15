@@ -1,3 +1,51 @@
 @import '../../App'
 
 .modal-container
+    background-color: white
+    position: fixed
+    z-index: 2
+    left: 5%
+    right: 5%
+    bottom: 5%
+    top: 5%
+    margin: 0 auto
+    border: none
+    box-shadow: 0 0 10px 0 #29292999
+    overflow: auto
+    padding: 50px 20px 20px 20px
+
+    .modal-close-button
+        position: absolute
+        right: 0
+        top: 0
+        margin: 20px 20px 0 0
+        cursor: pointer
+        width: 20px
+        height: 20px
+
+    .modal-title
+        font-weight: bold
+        font-size: 28px
+
+    .modal-poster
+        width: 160px
+        margin-top: 20px
+
+    .modal-overview
+        margin-top: 20px
+
+    .modal-details
+        margin-top: 20px
+        font-size: 20px
+        font-weight: bold
+
+    .modal-genre
+        color: $primary-color
+
+    .modal-link
+        color: black
+        text-decoration: underline
+
+@media only screen and (min-width: 768px)
+    .modal-container
+        max-width: 450px
