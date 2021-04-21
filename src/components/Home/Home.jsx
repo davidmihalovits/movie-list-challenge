@@ -43,8 +43,8 @@ const Home = () => {
     }, [search]);
 
     const openModal = (movie) => {
-        setModal(true);
         setMovie(movie);
+        setModal(true);
     };
 
     return (
@@ -71,36 +71,39 @@ const Home = () => {
             )}
             <div className="home-movie-grid-container">
                 {movies &&
-                    movies.map((movie) => {
+                    movies.map((m) => {
                         return (
                             <div
                                 className="home-movie-grid"
-                                key={movie.id}
-                                onClick={() => openModal(movie)}
+                                key={m.id}
+                                onClick={() => openModal(m)}
                             >
                                 <img
-                                    src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`}
+                                    src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2${m.poster_path}`}
                                     className="movie-poster"
                                     alt="movie poster"
                                 />
                                 <div className="home-movie-grid-right">
                                     <h2 className="home-movie-grid-title">
-                                        {movie.title}
+                                        {m.title}
                                     </h2>
                                     <p className="home-movie-grid-date">
-                                        {movie.release_date}
+                                        {m.release_date}
                                     </p>
-                                    {movie.genre_ids.map((id) => {
-                                        return genres.map(
-                                            (genre) =>
-                                                id === genre.id && (
-                                                    <p
-                                                        className="home-movie-grid-genre"
-                                                        key={id}
-                                                    >
-                                                        {genre.name}
-                                                    </p>
-                                                )
+                                    {m.genre_ids.map((id) => {
+                                        return (
+                                            genres &&
+                                            genres.map(
+                                                (g) =>
+                                                    id === g.id && (
+                                                        <p
+                                                            className="home-movie-grid-genre"
+                                                            key={id}
+                                                        >
+                                                            {g.name}
+                                                        </p>
+                                                    )
+                                            )
                                         );
                                     })}
                                 </div>

@@ -29,22 +29,22 @@ const Modal = (props) => {
                 alt="close"
                 className="modal-close-button"
             />
-            <h1 className="modal-title">{movie.title}</h1>
+            <h1 className="modal-title">{props.movie.title}</h1>
             <img
-                src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`}
+                src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2${props.movie.poster_path}`}
                 className="modal-poster"
                 alt="movie poster"
             />
-            <p className="modal-overview">{movie.overview}</p>
+            <p className="modal-overview">{props.movie.overview}</p>
             <h2 className="modal-details">Details:</h2>
-            <p className="modal-date">{movie.release_date}</p>
+            <p className="modal-date">{props.movie.release_date}</p>
             {movie &&
                 movie.genres.map((genre) => (
                     <p className="modal-genre" key={genre.id}>
                         {genre.name}
                     </p>
                 ))}
-            <p className="modal-runtime">{movie.runtime} minutes</p>
+            <p className="modal-runtime">{props.movie.runtime} minutes</p>
             {movie &&
                 movie.production_countries.map((country) => (
                     <p className="modal-country" key={country.iso_3166_1}>
@@ -52,7 +52,7 @@ const Modal = (props) => {
                     </p>
                 ))}
             <a
-                href={`https://www.imdb.com/title/${movie.imdb_id}`}
+                href={`https://www.imdb.com/title/${props.movie.imdb_id}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="modal-link"
